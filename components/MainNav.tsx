@@ -1,17 +1,18 @@
+"use client"
+
 import Link from 'next/link';
 import React from 'react';
+import { ModeToggle } from './ModeToggle';
+import { Button } from './ui/button';
+import MainNavLinks from './MainNavLinks';
 
 const MainNav = () => {
   return (
     <div className="flex justify-between">
-      <div className="flex items-center gap-2">
-        <Link href="/">Dashboard</Link>
-        <Link href="/tickets">Tickets</Link>
-        <Link href="/users">Users</Link>
-      </div>
-      <div className="flex items-center gap-2">
-        <Link href="/">Logout</Link>
-        <Link href="/">Dark</Link>
+      <MainNavLinks />
+      <div className="flex items-center gap-4">
+        <Button>Logout</Button>
+        <ModeToggle />
       </div>
     </div>
   );
