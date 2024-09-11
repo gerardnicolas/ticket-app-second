@@ -13,6 +13,7 @@ import Link from 'next/link';
 import TicketStatusBadge from '@/components/TicketStatusBadge';
 import TicketPriority from '@/components/TicketPriority';
 import ReactMarkDown from 'react-markdown';
+import DeleteButton from './DeleteButton';
 
 interface Props {
   ticket: Ticket;
@@ -58,7 +59,7 @@ const TicketDetail = ({ ticket }: Props) => {
         </CardFooter>
       </Card>
       <div>
-        <div className="mx-4 flex lg:flex-col lg:mx-0 gap-2">
+        <div className="mx-4 flex justify-center lg:flex-col lg:mx-0 gap-2">
           <Link
             href={`/tickets`}
             className={`${buttonVariants({
@@ -75,14 +76,7 @@ const TicketDetail = ({ ticket }: Props) => {
           >
             Edit Ticket
           </Link>
-          <Link
-            href={`/tickets/edit/${ticket.id}`}
-            className={`${buttonVariants({
-              variant: 'default',
-            })}`}
-          >
-            Delete Ticket
-          </Link>
+          <DeleteButton ticketId={ticket.id}/>
         </div>
       </div>
     </div>

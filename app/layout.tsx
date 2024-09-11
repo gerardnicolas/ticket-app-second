@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import MainNav from '@/components/MainNav';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -33,6 +34,7 @@ export default function RootLayout({
           <main className="flex flex-col items-center">
             <div className="max-w-6xl w-full">{children}</div>
           </main>
+          <Toaster/>
         </ThemeProvider>
       </body>
     </html>

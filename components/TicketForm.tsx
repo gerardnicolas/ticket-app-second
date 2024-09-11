@@ -1,64 +1,64 @@
-'use client'
-import React, { useState } from 'react'
-import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form'
-import { ticketSchema } from '@/ValidationSchemas/ticket'
-import { z } from 'zod'
-import { Controller, useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Input } from './ui/input'
-import SimpleMDE from 'react-simplemde-editor'
-import 'easymde/dist/easymde.min.css'
+'use client';
+import React, { useState } from 'react';
+import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
+import { ticketSchema } from '@/ValidationSchemas/ticket';
+import { z } from 'zod';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Input } from './ui/input';
+import SimpleMDE from 'react-simplemde-editor';
+import 'easymde/dist/easymde.min.css';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from './ui/select'
-import { Button } from './ui/button'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import { Ticket } from '@prisma/client'
+} from './ui/select';
+import { Button } from './ui/button';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { Ticket } from '@prisma/client';
 
-type TicketFormData = z.infer<typeof ticketSchema>
+type TicketFormData = z.infer<typeof ticketSchema>;
 
 interface Props {
-  ticket?: Ticket
+  ticket?: Ticket;
 }
 
 const TicketForm = ({ ticket }: Props) => {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState('')
-  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
   const form = useForm<TicketFormData>({
     resolver: zodResolver(ticketSchema),
-  })
+  });
 
   async function onSubmit(values: z.infer<typeof ticketSchema>) {
     try {
-      setIsSubmitting(true)
-      setError('')
+      setIsSubmitting(true);
+      setError('');
 
       if (ticket) {
-        await axios.patch('/api/tickets/' + ticket.id, values)
-        console.log("Update successful!")
+        await axios.patch('/api/tickets/' + ticket.id, values);
+        console.log('Update successful!');
       } else {
-        await axios.post('/api/tickets', values)
-        console.log("Ticket submission successful!")
+        await axios.post('/api/tickets', values);
+        console.log('Ticket submission successful!');
       }
 
       setTimeout(() => {
-        router.push('/tickets')
-      }, 1250)
+        router.push('/tickets');
+      }, 1250);
 
-      router.refresh()
+      router.refresh();
     } catch (error) {
-      console.log(error)
-      setError('Unknown error occured.')
-      setIsSubmitting(false)
+      console.log(error);
+      setError('Unknown error occured.');
+      setIsSubmitting(false);
     }
-    console.log(values)
+    console.log(values);
   }
 
   return (
@@ -153,7 +153,7 @@ const TicketForm = ({ ticket }: Props) => {
         </form>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default TicketForm
+export default TicketForm;
