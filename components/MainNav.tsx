@@ -7,7 +7,7 @@ import options from '@/app/api/auth/[...nextauth]/options';
 
 const MainNav = async () => {
   const session = await getServerSession(options);
-
+  
   return (
     <div className="flex justify-between">
       <MainNavLinks />
