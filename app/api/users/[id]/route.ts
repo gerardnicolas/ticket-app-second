@@ -40,6 +40,8 @@ export async function PATCH(request: NextRequest, { params }: Props) {
         { status: 409 }
       );
     }
+
+    
   }
 
   const updateUser = await prisma.user.update({

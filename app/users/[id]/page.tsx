@@ -7,9 +7,15 @@ interface Props {
 }
 
 const EditUser = async ({ params }: Props) => {
+  const userId = parseInt(params.id, 10);
+
+  if (isNaN(userId)) {
+    return <p className="text-destructive">Invalid user ID!</p>;
+  }
+
   const user = await prisma?.user.findUnique({
     where: {
-      id: parseInt(params.id),
+      id: userId,
     },
   });
 
