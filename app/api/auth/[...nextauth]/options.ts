@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs';
-import CredentialsProvider from 'next-auth/providers/credentials';
 import { NextAuthOptions } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import bcrypt from 'bcryptjs';
 import prisma from '@/prisma/db';
 
 const options: NextAuthOptions = {
@@ -16,6 +16,7 @@ const options: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
+      // Check to see if user is valid or not
       authorize: async (credentials) => {
         const user = await prisma.user.findUnique({
           where: { username: credentials!.username },
