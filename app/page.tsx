@@ -2,6 +2,7 @@ import React from 'react';
 import prisma from '@/prisma/db';
 import DashRecentTickets from '@/components/DashRecentTickets';
 import DashChart from '@/components/DashChart';
+import Clock from '@/components/Clock';
 
 const Dashboard = async () => {
   const tickets = await prisma.ticket.findMany({
@@ -25,18 +26,26 @@ const Dashboard = async () => {
     },
   });
 
-  console.log(groupTicket);
+  const data = groupTicket.map((item) => {
+    return {
+      name: item.status,
+      total: item._count.id,
+    };
+  });
 
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-2 px-2">
         <div>
-          <DashRecentTickets tickets={tickets}/>
+          <DashRecentTickets tickets={tickets} />
         </div>
         <div>
-          <DashChart />
+          <DashChart data={data} />
         </div>
       </div>
+      {/* <div>
+        <Clock/>
+      </div> */}
     </div>
   );
 };
