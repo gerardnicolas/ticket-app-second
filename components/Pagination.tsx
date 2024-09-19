@@ -61,7 +61,7 @@ const Pagination = ({ itemCount, pageSize, currentPage }: Props) => {
         </Button>
       </div>
       <div>
-        <p>
+        <p className='text-sm py-4'>
           Page {currentPage} of {pageCount}
         </p>
       </div>
