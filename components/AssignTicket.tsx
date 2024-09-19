@@ -11,10 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
+import router, { useRouter } from 'next/navigation';
 
 const AssignTicket = ({ ticket, users }: { ticket: Ticket; users: User[] }) => {
   const [isAssigning, setIsAssigning] = useState(false);
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const assignTicket = async (userId: string) => {
     try {
@@ -22,12 +24,12 @@ const AssignTicket = ({ ticket, users }: { ticket: Ticket; users: User[] }) => {
       await axios.patch(`/api/tickets/${ticket.id}`, {
         assignedToUserId: userId === '0' ? null : userId,
       });
-      setIsAssigning(false);
     } catch (error) {
       console.log(error);
       setError('Unable to assign ticket');
-      setIsAssigning(false);
     }
+    setIsAssigning(false);
+    router.refresh();
   };
 
   return (
